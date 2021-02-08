@@ -19,6 +19,8 @@ def get_sample(buffer, sample_number):
     assert(sample.repeat_point <= sample.length)
     sample.repeat_length = instrument_data[4] * 2 #Repeat Length for sample. Stored as number of words in loop
     assert(sample.repeat_length == 2 or sample.repeat_length <= sample.length)
+    if(sample.repeat_length == 2):
+        sample.repeat_length = -1   # don't repeat
     return sample
 
 

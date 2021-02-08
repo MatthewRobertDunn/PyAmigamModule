@@ -19,6 +19,7 @@ def get_pattern_note(buffer, pattern_number, row_number, channel_number):
     assert(note.sample_number < 31)
     note.period = (0b00001111 & raw[0]) << 8 # top 4 bits of period
     note.period = note.period + raw[1] # lower 9 bits of period
+    note.period = 1/3500000 * note.period # convert weird amiga periods to seconds
     note.effect = (0b00001111 & raw[2]) << 8 # top 4 bits of effect command
     note.effect = note.effect + raw[3] # lower 8 bits of effect command
     #todo unpack this mess
