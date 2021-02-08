@@ -8,6 +8,7 @@ import time
 
 
 def load(url):
+    print(f"Downloading {url}")
     response = requests.get(url)
     buffer = response.content
     song_name = Song.get_name(buffer)

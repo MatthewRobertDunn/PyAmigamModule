@@ -42,6 +42,6 @@ class Player:
     def play_notes(self, pattern, row):
         for i, channel in enumerate(self.channels):
             note = self.song.patterns[pattern][row][i]
-            print(f"{note.sample_number}", end=" ")
+            print(f"{note.sample_number:03}", end=" ")
             channel.play_note(note.sample_number,note.period,note.effect)
         print("")
