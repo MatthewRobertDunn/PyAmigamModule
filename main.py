@@ -1,3 +1,4 @@
+from math import trunc
 import requests 
 import samples as Samples
 import song
@@ -39,19 +40,18 @@ time_step = 1.0 / sd.default.samplerate
 channel = Channel.channel(samples,time_step)
 
 channel.play_note(0,1/44100,0) #play note using sample 0, 1/16000th period, 0 effect
-buffer = channel.get_frames(1.0) # get 1 second worth of frames
-sd.play(buffer) #play the buffer
-sd.wait()
+buffer = channel.get_frames(1) # get 1 second worth of frames
+sd.play(buffer, blocking=True) #play the buffer
 
-channel.play_note(0,1/16000,0) #play note using sample 0, 1/16000th period, 0 effect
-buffer = channel.get_frames(1.0) # get 1 second worth of frames
-sd.play(buffer) #play the buffer
-sd.wait()
+channel.play_note(1,1/30100,0) #play note using sample 0, 1/16000th period, 0 effect
+buffer = channel.get_frames(1) # get 1 second worth of frames
+sd.play(buffer, blocking=True) #play the buffer
 
-channel.play_note(0,1/20000,0) #play note using sample 0, 1/16000th period, 0 effect
-buffer = channel.get_frames(1.0) # get 1 second worth of frames
-sd.play(buffer) #play the buffer
-sd.wait()
+channel.play_note(2,1/22000,0) #play note using sample 0, 1/16000th period, 0 effect
+buffer = channel.get_frames(1) # get 1 second worth of frames
+sd.play(buffer, blocking=True) #play the buffer
+
+
 
 #def callback(outdata, frames, time, status):
 #    if status:

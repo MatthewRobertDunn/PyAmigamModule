@@ -41,3 +41,4 @@ class channel:
             self.current_frame += self.frame_rate_scale
             if self.current_frame > self.sample.length - 1:
                 return buffer
+        return buffer
