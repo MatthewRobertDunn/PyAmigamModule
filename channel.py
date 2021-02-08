@@ -5,7 +5,7 @@ class channel:
         self.samples = samples
         self.frame_rate_period = frame_rate_period
         self.current_frame = 0
-        self.sample = -1
+        self.sample = None
         self.period = 0
     
     #plays a note using a given sample, at a frequency given by period, with given effect
@@ -27,10 +27,10 @@ class channel:
         buffer = [0.0] * requested_frames
 
         if self.sample is None:
-            return     #nothing to play
+            return buffer     #nothing to play
         
         # we are not repeating and we finished playing this sample
-        if self.sample.repeat_length == -1 & self.current_frame > self.sample.length:
+        if self.sample.repeat_length == -1 and self.current_frame > self.sample.length:
             return buffer    #nothing to play
         
         #ignoring repeat for now

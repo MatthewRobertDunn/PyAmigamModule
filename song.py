@@ -12,8 +12,9 @@ def get_song(buffer):
     song = Song()
     song.length = unpack_from('BB',buffer, 950)[0]
     assert(song.length <= 128)
-    song.positions = unpack_from('B'*128,buffer,952)       #which pattern to play at what 'position'
+    song.sequences = unpack_from('B'*128,buffer,952)       #which pattern to play at what 'position'
     song.file_type = b''.join(unpack_from('cccc',buffer,1080))
     assert(song.file_type == b'M.K.')
-    song.patterns_count = max(song.positions) + 1
+    song.patterns_count = max(song.sequences) + 1
+    song.note_period = 60 / 125.0 # 125 bpm
     return song
