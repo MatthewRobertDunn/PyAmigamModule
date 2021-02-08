@@ -16,5 +16,5 @@ def get_song(buffer):
     song.file_type = b''.join(unpack_from('cccc',buffer,1080))
     assert(song.file_type == b'M.K.')
     song.patterns_count = max(song.sequences) + 1
-    song.note_period = 60 / 125.0 # 125 bpm
+    song.note_period = 0.12 # 125 bpm
     return song
