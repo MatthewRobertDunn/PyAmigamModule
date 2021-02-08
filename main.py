@@ -31,6 +31,9 @@ sd.default.samplerate = 16000
 sd.default.channels = 1
 sd.default.dtype = 'float32'
 
+current_time = 0
+time_step = 1.0 / sd.default.samplerate
+
 def callback(outdata, frames, time, status):
     if status:
         print(status)
@@ -39,5 +42,3 @@ def callback(outdata, frames, time, status):
 
 with sd.OutputStream(callback=callback):
     sd.sleep(int(5 * 1000))
-
-
