@@ -18,7 +18,6 @@ def load(url):
     song = Song.get_song(buffer)
     song.samples = samples
     song.name = song_name
-    print(song)
     patterns = [Patterns.get_pattern(buffer, pattern_number)
                 for pattern_number in range(song.patterns_count)]
     song.patterns = patterns
