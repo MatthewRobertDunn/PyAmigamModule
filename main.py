@@ -4,6 +4,7 @@ import samples as Samples
 import song
 import patterns as Patterns
 import channel as Channel
+import time
 # https://www.ocf.berkeley.edu/~eek/index.html/tiny_examples/ptmod/ap12.html
 
 response = requests.get("https://api.modarchive.org/downloads.php?moduleid=75502#popcorn_90.mod")
@@ -39,7 +40,9 @@ time_step = 1.0 / sd.default.samplerate
 
 channel = Channel.channel(samples,time_step)
 
-channel.play_note(0,1/44100,0) #play note using sample 0, 1/16000th period, 0 effect
+note = patterns[0][4][0]
+
+channel.play_note(note.sample_number,note.period,note.effect) #play note using sample 0, 1/16000th period, 0 effect
 buffer = channel.get_frames(1) # get 1 second worth of frames
 sd.play(buffer, blocking=True) #play the buffer
 
@@ -47,12 +50,14 @@ channel.play_note(1,1/30100,0) #play note using sample 0, 1/16000th period, 0 ef
 buffer = channel.get_frames(1) # get 1 second worth of frames
 sd.play(buffer, blocking=True) #play the buffer
 
+t = time.perf_counter()
 channel.play_note(2,1/22000,0) #play note using sample 0, 1/16000th period, 0 effect
 buffer = channel.get_frames(1) # get 1 second worth of frames
+elapsed_time = time.perf_counter() - t
+print(f"producing 1 second of audio took {elapsed_time}")
 sd.play(buffer, blocking=True) #play the buffer
 
-
-
+time.sleep(1)
 #def callback(outdata, frames, time, status):
 #    if status:
 #        print(status)

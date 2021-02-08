@@ -24,7 +24,6 @@ class channel:
     #returns audio frames for this channel for a given duration in secs.
     def get_frames(self, duration):
         requested_frames = math.floor(duration / self.frame_rate_period)
-
         buffer = [0.0] * requested_frames
 
         if self.sample is None:
@@ -33,7 +32,6 @@ class channel:
         # we are not repeating and we finished playing this sample
         if self.sample.repeat_length == -1 & self.current_frame > self.sample.length:
             return buffer    #nothing to play
-        
         
         #ignoring repeat for now
         for i in range(requested_frames):
