@@ -14,6 +14,7 @@ class Player:
         self.sequence = 0
         self.pattern_row = 0
         self.last_note_counter = 0
+        self.finished = False
 
     def get_frames(self, duration):
         requested_frames = math.floor(duration / self.frame_rate_period)
@@ -27,6 +28,11 @@ class Player:
         if self.pattern_row > 63:
             self.sequence += 1
             self.pattern_row = 0
+            print(f"squence {self.sequence} pattern {self.song.sequences[self.sequence]}")
+            if self.sequence >= self.song.length:
+                self.finished = True
+                print("Finished!")
+
 
         notes = [x.get_frames(self.song.note_period) for x in self.channels ]
         mix = np.add.reduce(np.single(notes)) * 0.25

@@ -18,9 +18,7 @@ player = Player.Player(song,time_step)
 os = sd.OutputStream()
 os.start()
 
-while True:
+while not player.finished:
     os.write(player.get_frames_row())
 
-
-
-time.sleep(1)
+input("Press Enter to continue...")
