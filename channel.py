@@ -40,7 +40,7 @@ class channel:
         #ignoring repeat for now
         for i in range(requested_frames):
             frac, whole = math.modf(self.current_frame)
-            whole = math.floor(whole)
+            whole = int(whole)
             buffer[i] = (1.0 - frac) * self.sample.pcm_data[whole] + frac * self.sample.pcm_data[whole + 1]
             self.current_frame += self.frame_rate_scale
             if self.current_frame >= self.sample.length:
