@@ -25,14 +25,8 @@ class channel:
             self.effect = effect
         return
 
-    def get_frames(self, duration):
-        frames = self.get_frames_raw(duration)
-        #if self.nyquist_frequency > 0:
-        #    frames = butter_lowpass_filter(frames, self.nyquist_frequency, self.frame_rate)
-        return frames
-
     #returns audio frames for this channel for a given duration in secs.
-    def get_frames_raw(self, duration):
+    def get_frames(self, duration):
         requested_frames = math.floor(duration / self.frame_rate_period)
         buffer = [0.0] * requested_frames
 
