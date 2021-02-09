@@ -31,6 +31,7 @@ def get_pcm_data_for_samples(buffer,samples, patterns_count):
         raw_data = buffer[offset:offset+sample.length]
         sample.pcm_data = [to8bitsigned(x) / 128.0 for x in raw_data]
         assert(len(sample.pcm_data) == sample.length)
+        sample.pcm_data.append(sample.pcm_data[-1]) #pad out for linear interpolation
         offset = offset + sample.length
 
 def to8bitsigned(byte):

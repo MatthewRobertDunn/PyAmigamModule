@@ -1,6 +1,4 @@
 import math
-import scipy
-from scipy.signal import butter, lfilter
 
 #Generates audio for a single channel
 class channel:
@@ -29,8 +27,8 @@ class channel:
 
     def get_frames(self, duration):
         frames = self.get_frames_raw(duration)
-        if self.nyquist_frequency > 0:
-            frames = butter_lowpass_filter(frames, self.nyquist_frequency, self.frame_rate)
+        #if self.nyquist_frequency > 0:
+        #    frames = butter_lowpass_filter(frames, self.nyquist_frequency, self.frame_rate)
         return frames
 
     #returns audio frames for this channel for a given duration in secs.
@@ -47,19 +45,10 @@ class channel:
         
         #ignoring repeat for now
         for i in range(requested_frames):
-            buffer[i] = self.sample.pcm_data[math.floor(self.current_frame)]
+            frac, whole = math.modf(self.current_frame)
+            whole = math.floor(whole)
+            buffer[i] = (1.0 - frac) * self.sample.pcm_data[whole] + frac * self.sample.pcm_data[whole + 1]
             self.current_frame += self.frame_rate_scale
             if self.current_frame >= self.sample.length:
                 return buffer
         return buffer
-
-def butter_lowpass(cutoff, fs, order=5):
-    nyq = 0.5 * fs
-    normal_cutoff = cutoff / nyq
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
-    return b, a
-
-def butter_lowpass_filter(data, cutoff, fs, order=5):
-    b, a = butter_lowpass(cutoff, fs, order=order)
-    y = lfilter(b, a, data)
-    return y
