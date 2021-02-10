@@ -21,6 +21,9 @@ def get_sample(buffer, sample_number):
     assert(sample.repeat_length == 2 or sample.repeat_length <= sample.length)
     if(sample.repeat_length == 2):
         sample.repeat_length = -1   # don't repeat
+        sample.repeats = False
+    else:
+        sample.repeats = True
     return sample
 
 
