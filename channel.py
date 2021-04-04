@@ -1,5 +1,5 @@
 import math
-
+import numpy
 #Generates audio for a single channel
 class channel:
     def __init__(self, samples, frame_rate_period):
@@ -28,7 +28,8 @@ class channel:
     #returns audio frames for this channel for a given duration in secs.
     def get_frames(self, duration):
         requested_frames = math.floor(duration / self.frame_rate_period)
-        buffer = [0.0] * requested_frames
+        buffer = numpy.zeros(requested_frames,dtype=numpy.float32)
+        #buffer = [0.0] * requested_frames
 
         if self.sample is None:
             return buffer     #nothing to play
