@@ -29,7 +29,6 @@ class channel:
     def get_frames(self, duration):
         requested_frames = math.floor(duration / self.frame_rate_period)
         buffer = numpy.zeros(requested_frames,dtype=numpy.float32)
-        #buffer = [0.0] * requested_frames
 
         if self.sample is None:
             return buffer     #nothing to play
